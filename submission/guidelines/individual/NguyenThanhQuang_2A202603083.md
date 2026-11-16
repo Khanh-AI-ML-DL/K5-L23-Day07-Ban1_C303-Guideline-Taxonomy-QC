@@ -63,14 +63,14 @@ Mục tiêu là gán nhãn chính xác, nhất quán, không bỏ sót đối t�
 
 ## 4. Các trường hợp khó (Case Study)
 
-| Ảnh | Tình huống | Rule ID | Quyết định | Lý do |
-|---|---|---|---|---|
-| img_0xx | Người ngồi trên xe máy | R-05 | Tách thành hai box: person và motorcycle | Đây là hai đối tượng độc lập. |
-| img_0xx | Người bị phương tiện khác che khuất | R-03 | Vẽ phần nhìn thấy, chọn mức occlusion phù hợp | Không suy đoán phần bị che. |
-| img_0xx | Xe bị cắt ở cạnh ảnh | R-04 | Vẽ box đến mép ảnh, truncated=yes | Đối tượng không nằm trọn trong ảnh. |
-| img_0xx | Xe chở nhiều phương tiện | R-08 | Gán nhãn riêng từng xe nhận diện được | Mỗi phương tiện là một đối tượng. |
-| img_0xx | Người xuất hiện trên hình quảng cáo hoặc tượng | R-07 | Không gán nhãn person | Không phải người thật. |
-| img_0xx | Đám đông hoặc đối tượng quá mờ | R-09, R-10 | Ghi nhận vùng cần review; dùng ignore_region nếu phù hợp | Không đủ thông tin để phân loại chính xác. |
+| Tình huống | Rule ID | Quyết định gán nhãn | Lý do |
+|---|---|---|---|
+| Người ngồi trên xe máy | R-05 | Tạo hai Bounding Box riêng cho `person` và `motorcycle`. | Người và xe máy là hai đối tượng độc lập. |
+| Đối tượng bị che khuất một phần | R-03 | Vẽ box theo phần nhìn thấy và xác định `occluded_level` phù hợp. | Không suy đoán phần bị che khuất. |
+| Phương tiện bị cắt bởi cạnh ảnh | R-04 | Vẽ box đến sát mép ảnh và đặt `truncated=yes`. | Đối tượng không xuất hiện đầy đủ trong ảnh. |
+| Nhiều phương tiện chồng lấn | R-06 | Vẽ Bounding Box riêng cho từng phương tiện có thể nhận diện. | Tránh gộp nhiều đối tượng thành một box. |
+| Người xuất hiện trên biển quảng cáo hoặc tượng | R-07 | Không gán nhãn `person`. | Đây không phải người thật. |
+| Đám đông hoặc đối tượng quá mờ | R-09, R-10 | Không tự suy đoán; đánh dấu `can_review` hoặc sử dụng `ignore_region` khi phù hợp. | Đảm bảo tính chính xác và tránh gán nhãn sai. |
 
 *Lưu ý: Thay `img_0xx` bằng ID ảnh thực tế trong bộ 40 ảnh sau khi khảo sát; điều chỉnh quyết định nếu ảnh thực tế khác mô tả.*
 
