@@ -1,0 +1,4 @@
+{
+  "kind": "semantic",
+  "summary": "Calibration v1.0 -> v1.1 sau IAA (229 cap box ghep, IoU TB 0.818, cung lop 93.9%, cung occluded_level 59.0%, chua dat nguong 0.85/95%). Lam ro quy tac box amodal cho vat bi che, dinh nghia occluded_level, ranh gioi car/van/truck/bus va ca bo sot/thua cua vat nho; cac thay doi nay co the doi nhan cua nhieu anh nen xet lai ca lo."
+}
