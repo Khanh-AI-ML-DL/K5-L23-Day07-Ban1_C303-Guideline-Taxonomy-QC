@@ -1,9 +1,9 @@
 # Thông tin nhóm
 
 - Tên nhóm:
-- Mã thành viên (ba chữ số):
-- Người điều phối:
-- Người review bản cuối:
+- Mã thành viên (ba chữ số):Huỳnh Nhật Quang-2A202603113-101 , Võ Khắc Xuân Nguyên-2A202603122-102 , Nguyễn Xuân Khánh -2A202603075-103,Nguyễn Thanh Quang-2A202603083-104
+- Người điều phối:Võ Khắc Xuân Nguyên
+- Người review bản cuối:Nguyễn Thanh Quang
 - Commit chốt bài (điền ở kênh nộp sau khi commit):
 
 ## Kết quả tóm tắt (điền cuối bài)
