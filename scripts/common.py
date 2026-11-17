@@ -308,7 +308,8 @@ def label_errors(labels: LabelFile, tax: Taxonomy) -> List[str]:
                 errors.append(f"{tag}: lớp '{obj.cls}' ngoài taxonomy.")
                 continue
             x1, y1, x2, y2 = obj.box
-            if not (0 <= x1 < x2 <= width and 0 <= y1 < y2 <= height):
+            eps = 0.02  # dung sai làm tròn 2 chữ số thập phân khi đổi xyxy <-> xywh
+            if not (0 <= x1 < x2 <= width + eps and 0 <= y1 < y2 <= height + eps):
                 errors.append(f"{tag}: bbox không hợp lệ hoặc vượt ảnh.")
             if obj.cls == tax.ignore:
                 continue

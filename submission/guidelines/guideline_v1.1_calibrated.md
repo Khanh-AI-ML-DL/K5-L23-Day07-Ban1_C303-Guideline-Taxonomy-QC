@@ -189,11 +189,23 @@ Dùng khi **không thể** gán từng vật một cách đáng tin.
 
 ## 6. Quy tắc chốt khi calibration (v1.1)
 
-
 | Mã | Quy tắc | Lý do (ca/ảnh dẫn chứng) | Ảnh hưởng |
-|---|---|--|---|
-| R-01 |  |  |  |
+|---|---|---|---|
+| R-01 | Phân lớp theo cấu tạo xe: pickup/thùng hàng riêng là `truck`, minivan là `van`, xe khách lớn/vừa là `bus`. | 001–040 (ví dụ 009, 037) | Cả lô |
+| R-02 | Box amodal khi thấy ≥ ~40% và ước lượng được phần che; không chắc thì box phần thấy và tick `can_review`. | 3.3.1 | Cả lô |
+| R-03 | Box sát vật, viền trống ≤ 2 px; tính gương, tay lái, phụ kiện của xe. | calibration_candidates (iou_thap) | Cả lô |
+| R-04 | `occluded_level`: 0 khi thấy ≥ 90%; 1 khi che 10–40%; 2 khi che 40–80%; 3 khi thấy < 20% nhưng vẫn nhận ra chắc. | 2.3 | Cả lô |
+| R-05 | `truncated=yes` chỉ khi vật bị cắt bởi mép ảnh, box dừng ở mép ảnh; không dùng che khuất thay cho cắt mép. | calibration_candidates | Cả lô |
+| R-06 | Tách từng `person` khỏi phương tiện; box xe máy không ôm thân người; người ở xe hở thấy ≥ 30% thì gán riêng. | 3.4 | Cả lô |
+| R-07 | Không gán tượng, ma-nơ-canh, mô hình, đồ chơi, hình in, phản chiếu; xe thật đi kèm vẫn gán. | 011, 017, 020, 027, 033, 038 | Cả lô |
+| R-08 | Vật thật có cạnh dài ≥ 20 px mới xét; 20–40 px phải rõ lớp; chỉ là vệt mờ thì không gán. | 3.1–3.2 | Cả lô |
+| R-09 | Vùng dày không tách đáng tin dùng `ignore_region`; giữ riêng hàng đầu/đối tượng gần thấy ≥ 50%; `ignore_region` không phủ vật đã gán riêng. | bat_dong_ignore (ví dụ 019) | Cả lô |
+| R-10 | Xe chở xe (002): gán một box `truck` cho xe chở; các xe đang nằm trên giàn gom vào một `ignore_region` (không gán từng `car`, không điền thuộc tính cho `ignore_region`). | 002 | Cả lô |
+| R-11 | Sidecar thuộc cùng một `motorcycle`; tuk-tuk, xích lô đạp, xe đạp: xem ánh xạ 6 lớp bên dưới; luôn tách `person`. | 004, 016, 022, 023, 035 | Cả lô |
+| R-12 | Hàng sát xe trong giới hạn guideline tính vào box xe; bỏ vật dài nhô xa; box `person` không ôm gánh/giỏ/túi nhô ngoài. | 001, 012, 029, 035 | Cả lô |
+
+**Ánh xạ về 6 lớp của taxonomy (nhóm giữ taxonomy v0):** `bus` → `truck`; `three_wheeler` (tuk-tuk) → `motorcycle`; `bicycle`/xích lô đạp → không gán phương tiện, chỉ gán `person`.
 
 | Phiên bản | Thay đổi | Ảnh dẫn chứng |
-|---|--|--|
-| v1.1 |  |  |
+|---|---|---|
+| v1.1 | Chốt quy tắc R-01…R-12 sau IAA; làm rõ box amodal, `occluded_level`, ranh giới car/van/truck/bus, vật nhỏ, `ignore_region`; áp dụng ánh xạ 6 lớp. | 001–040 |
